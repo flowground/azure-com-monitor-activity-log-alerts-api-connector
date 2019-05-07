@@ -1,0 +1,2511 @@
+{
+    "openapi": "3.0.0",
+    "servers": [
+        {
+            "url": "https://management.azure.com/"
+        }
+    ],
+    "info": {
+        "title": "Azure Activity Log Alerts",
+        "version": "2017-04-01",
+        "x-apisguru-categories": [
+            "cloud"
+        ],
+        "x-logo": {
+            "url": "https://api.apis.guru/v2/cache/logo/https_assets.onestore.ms_cdnfiles_onestorerolling-1606-01000_shell_v3_images_logo_microsoft.png"
+        },
+        "x-ms-code-generation-settings": {
+            "name": "MonitorManagementClient"
+        },
+        "x-origin": [
+            {
+                "format": "swagger",
+                "url": "https://raw.githubusercontent.com/Azure/azure-rest-api-specs/master/specification/monitor/resource-manager/Microsoft.Insights/stable/2017-04-01/activityLogAlerts_API.json",
+                "version": "2.0"
+            }
+        ],
+        "x-preferred": true,
+        "x-providerName": "azure.com",
+        "x-serviceName": "monitor-activityLogAlerts_API",
+        "x-tags": [
+            "Azure",
+            "Microsoft"
+        ]
+    },
+    "security": [
+        {
+            "azure_auth": [
+                "user_impersonation"
+            ]
+        }
+    ],
+    "paths": {
+        "/subscriptions/{subscriptionId}/providers/microsoft.insights/activityLogAlerts": {
+            "get": {
+                "description": "Get a list of all activity log alerts in a subscription.",
+                "operationId": "ActivityLogAlerts_ListBySubscriptionId",
+                "parameters": [
+                    {
+                        "description": "The Azure subscription Id.",
+                        "in": "path",
+                        "name": "subscriptionId",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "Client Api Version.",
+                        "in": "query",
+                        "name": "api-version",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The request succeeded.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "A list of activity log alerts.",
+                                    "properties": {
+                                        "nextLink": {
+                                            "description": "Provides the link to retrieve the next set of elements.",
+                                            "type": "string"
+                                        },
+                                        "value": {
+                                            "description": "The list of activity log alerts.",
+                                            "items": {
+                                                "allOf": [
+                                                    {
+                                                        "description": "An azure resource object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "description": "Azure resource Id",
+                                                                "readOnly": true,
+                                                                "type": "string"
+                                                            },
+                                                            "location": {
+                                                                "description": "Resource location",
+                                                                "type": "string",
+                                                                "x-ms-mutability": [
+                                                                    "create",
+                                                                    "read"
+                                                                ]
+                                                            },
+                                                            "name": {
+                                                                "description": "Azure resource name",
+                                                                "readOnly": true,
+                                                                "type": "string"
+                                                            },
+                                                            "tags": {
+                                                                "additionalProperties": {
+                                                                    "type": "string"
+                                                                },
+                                                                "description": "Resource tags"
+                                                            },
+                                                            "type": {
+                                                                "description": "Azure resource type",
+                                                                "readOnly": true,
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "location"
+                                                        ],
+                                                        "x-ms-azure-resource": true,
+                                                        "type": "object"
+                                                    }
+                                                ],
+                                                "description": "An activity log alert resource.",
+                                                "properties": {
+                                                    "properties": {
+                                                        "description": "The activity log alert properties of the resource.",
+                                                        "x-ms-client-flatten": true,
+                                                        "properties": {
+                                                            "actions": {
+                                                                "description": "The actions that will activate when the condition is met.",
+                                                                "properties": {
+                                                                    "actionGroups": {
+                                                                        "description": "The list of activity log alerts.",
+                                                                        "items": {
+                                                                            "description": "A pointer to an Azure Action Group.",
+                                                                            "properties": {
+                                                                                "actionGroupId": {
+                                                                                    "description": "The resourceId of the action group. This cannot be null or empty.",
+                                                                                    "type": "string"
+                                                                                },
+                                                                                "webhookProperties": {
+                                                                                    "additionalProperties": {
+                                                                                        "type": "string"
+                                                                                    },
+                                                                                    "description": "the dictionary of custom properties to include with the post operation. These data are appended to the webhook payload."
+                                                                                }
+                                                                            },
+                                                                            "required": [
+                                                                                "actionGroupId"
+                                                                            ],
+                                                                            "type": "object"
+                                                                        },
+                                                                        "type": "array"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            },
+                                                            "condition": {
+                                                                "description": "The condition that will cause this alert to activate.",
+                                                                "properties": {
+                                                                    "allOf": {
+                                                                        "description": "The list of activity log alert conditions.",
+                                                                        "items": {
+                                                                            "description": "An Activity Log alert condition that is met by comparing an activity log field and value.",
+                                                                            "properties": {
+                                                                                "equals": {
+                                                                                    "description": "The field value will be compared to this value (case-insensitive) to determine if the condition is met.",
+                                                                                    "type": "string"
+                                                                                },
+                                                                                "field": {
+                                                                                    "description": "The name of the field that this condition will examine. The possible values for this field are (case-insensitive): 'resourceId', 'category', 'caller', 'level', 'operationName', 'resourceGroup', 'resourceProvider', 'status', 'subStatus', 'resourceType', or anything beginning with 'properties.'.",
+                                                                                    "type": "string"
+                                                                                }
+                                                                            },
+                                                                            "required": [
+                                                                                "field",
+                                                                                "equals"
+                                                                            ],
+                                                                            "type": "object"
+                                                                        },
+                                                                        "type": "array"
+                                                                    }
+                                                                },
+                                                                "required": [
+                                                                    "allOf"
+                                                                ],
+                                                                "type": "object"
+                                                            },
+                                                            "description": {
+                                                                "description": "A description of this activity log alert.",
+                                                                "type": "string"
+                                                            },
+                                                            "enabled": {
+                                                                "default": true,
+                                                                "description": "Indicates whether this activity log alert is enabled. If an activity log alert is not enabled, then none of its actions will be activated.",
+                                                                "type": "boolean"
+                                                            },
+                                                            "scopes": {
+                                                                "description": "A list of resourceIds that will be used as prefixes. The alert will only apply to activityLogs with resourceIds that fall under one of these prefixes. This list must include at least one item.",
+                                                                "items": {
+                                                                    "type": "string"
+                                                                },
+                                                                "type": "array"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "scopes",
+                                                            "condition",
+                                                            "actions"
+                                                        ]
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An error occurred and the list of activity log alerts could not be retrieved.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "Describes the format of Error response.",
+                                    "properties": {
+                                        "code": {
+                                            "description": "Error code",
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "description": "Error message indicating why the operation failed.",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-ms-examples": {
+                    "List activity log alerts": {
+                        "parameters": {
+                            "api-version": "2017-04-01",
+                            "resourceGroupName": "Default-ActivityLogAlerts",
+                            "subscriptionId": "187f412d-1758-44d9-b052-169e2564721d"
+                        },
+                        "responses": {
+                            "200": {
+                                "body": {
+                                    "value": [
+                                        {
+                                            "id": "/subscriptions/187f412d-1758-44d9-b052-169e2564721d/resourceGroups/Default-ActivityLogAlerts/providers/microsoft.insights/activityLogAlerts/SampleActivityLogAlert",
+                                            "location": "Global",
+                                            "name": "SampleActivityLogAlert",
+                                            "properties": {
+                                                "actions": {
+                                                    "actionGroups": [
+                                                        {
+                                                            "actionGroupId": "/subscriptions/187f412d-1758-44d9-b052-169e2564721d/resourceGroups/Default-ActionGroups/providers/microsoft.insights/actionGroups/SampleActionGroup",
+                                                            "webhookProperties": {
+                                                                "sampleWebhookProperty": "samplePropertyValue"
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                "condition": {
+                                                    "allOf": [
+                                                        {
+                                                            "equals": "Administrative",
+                                                            "field": "Category"
+                                                        },
+                                                        {
+                                                            "equals": "Error",
+                                                            "field": "Level"
+                                                        }
+                                                    ]
+                                                },
+                                                "description": "Sample activity log alert description",
+                                                "enabled": true,
+                                                "scopes": [
+                                                    "subscriptions/187f412d-1758-44d9-b052-169e2564721d"
+                                                ]
+                                            },
+                                            "tags": {},
+                                            "type": "Microsoft.Insights/ActivityLogAlerts"
+                                        },
+                                        {
+                                            "id": "/subscriptions/187f412d-1758-44d9-b052-169e2564721d/resourceGroups/Default-ActivityLogAlerts/providers/microsoft.insights/activityLogAlerts/SampleActivityLogAlert2",
+                                            "location": "Global",
+                                            "name": "SampleActivityLogAlert2",
+                                            "properties": {
+                                                "actions": {
+                                                    "actionGroups": [
+                                                        {
+                                                            "actionGroupId": "/subscriptions/187f412d-1758-44d9-b052-169e2564721d/resourceGroups/Default-ActionGroups/providers/microsoft.insights/actionGroups/SampleActionGroup",
+                                                            "webhookProperties": {}
+                                                        }
+                                                    ]
+                                                },
+                                                "condition": {
+                                                    "allOf": [
+                                                        {
+                                                            "equals": "Administrative",
+                                                            "field": "Category"
+                                                        }
+                                                    ]
+                                                },
+                                                "enabled": true,
+                                                "scopes": [
+                                                    "subscriptions/187f412d-1758-44d9-b052-169e2564721d/resourceGroups/Default-ActivityLogAlerts"
+                                                ]
+                                            },
+                                            "tags": {},
+                                            "type": "Microsoft.Insights/ActivityLogAlerts"
+                                        }
+                                    ]
+                                },
+                                "headers": {}
+                            }
+                        }
+                    }
+                },
+                "x-ms-pageable": {}
+            }
+        },
+        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/microsoft.insights/activityLogAlerts": {
+            "get": {
+                "description": "Get a list of all activity log alerts in a resource group.",
+                "operationId": "ActivityLogAlerts_ListByResourceGroup",
+                "parameters": [
+                    {
+                        "description": "The Azure subscription Id.",
+                        "in": "path",
+                        "name": "subscriptionId",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "The name of the resource group.",
+                        "in": "path",
+                        "name": "resourceGroupName",
+                        "required": true,
+                        "x-ms-parameter-location": "method",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "Client Api Version.",
+                        "in": "query",
+                        "name": "api-version",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The request succeeded.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "A list of activity log alerts.",
+                                    "properties": {
+                                        "nextLink": {
+                                            "description": "Provides the link to retrieve the next set of elements.",
+                                            "type": "string"
+                                        },
+                                        "value": {
+                                            "description": "The list of activity log alerts.",
+                                            "items": {
+                                                "allOf": [
+                                                    {
+                                                        "description": "An azure resource object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "description": "Azure resource Id",
+                                                                "readOnly": true,
+                                                                "type": "string"
+                                                            },
+                                                            "location": {
+                                                                "description": "Resource location",
+                                                                "type": "string",
+                                                                "x-ms-mutability": [
+                                                                    "create",
+                                                                    "read"
+                                                                ]
+                                                            },
+                                                            "name": {
+                                                                "description": "Azure resource name",
+                                                                "readOnly": true,
+                                                                "type": "string"
+                                                            },
+                                                            "tags": {
+                                                                "additionalProperties": {
+                                                                    "type": "string"
+                                                                },
+                                                                "description": "Resource tags"
+                                                            },
+                                                            "type": {
+                                                                "description": "Azure resource type",
+                                                                "readOnly": true,
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "location"
+                                                        ],
+                                                        "x-ms-azure-resource": true,
+                                                        "type": "object"
+                                                    }
+                                                ],
+                                                "description": "An activity log alert resource.",
+                                                "properties": {
+                                                    "properties": {
+                                                        "description": "The activity log alert properties of the resource.",
+                                                        "x-ms-client-flatten": true,
+                                                        "properties": {
+                                                            "actions": {
+                                                                "description": "The actions that will activate when the condition is met.",
+                                                                "properties": {
+                                                                    "actionGroups": {
+                                                                        "description": "The list of activity log alerts.",
+                                                                        "items": {
+                                                                            "description": "A pointer to an Azure Action Group.",
+                                                                            "properties": {
+                                                                                "actionGroupId": {
+                                                                                    "description": "The resourceId of the action group. This cannot be null or empty.",
+                                                                                    "type": "string"
+                                                                                },
+                                                                                "webhookProperties": {
+                                                                                    "additionalProperties": {
+                                                                                        "type": "string"
+                                                                                    },
+                                                                                    "description": "the dictionary of custom properties to include with the post operation. These data are appended to the webhook payload."
+                                                                                }
+                                                                            },
+                                                                            "required": [
+                                                                                "actionGroupId"
+                                                                            ],
+                                                                            "type": "object"
+                                                                        },
+                                                                        "type": "array"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            },
+                                                            "condition": {
+                                                                "description": "The condition that will cause this alert to activate.",
+                                                                "properties": {
+                                                                    "allOf": {
+                                                                        "description": "The list of activity log alert conditions.",
+                                                                        "items": {
+                                                                            "description": "An Activity Log alert condition that is met by comparing an activity log field and value.",
+                                                                            "properties": {
+                                                                                "equals": {
+                                                                                    "description": "The field value will be compared to this value (case-insensitive) to determine if the condition is met.",
+                                                                                    "type": "string"
+                                                                                },
+                                                                                "field": {
+                                                                                    "description": "The name of the field that this condition will examine. The possible values for this field are (case-insensitive): 'resourceId', 'category', 'caller', 'level', 'operationName', 'resourceGroup', 'resourceProvider', 'status', 'subStatus', 'resourceType', or anything beginning with 'properties.'.",
+                                                                                    "type": "string"
+                                                                                }
+                                                                            },
+                                                                            "required": [
+                                                                                "field",
+                                                                                "equals"
+                                                                            ],
+                                                                            "type": "object"
+                                                                        },
+                                                                        "type": "array"
+                                                                    }
+                                                                },
+                                                                "required": [
+                                                                    "allOf"
+                                                                ],
+                                                                "type": "object"
+                                                            },
+                                                            "description": {
+                                                                "description": "A description of this activity log alert.",
+                                                                "type": "string"
+                                                            },
+                                                            "enabled": {
+                                                                "default": true,
+                                                                "description": "Indicates whether this activity log alert is enabled. If an activity log alert is not enabled, then none of its actions will be activated.",
+                                                                "type": "boolean"
+                                                            },
+                                                            "scopes": {
+                                                                "description": "A list of resourceIds that will be used as prefixes. The alert will only apply to activityLogs with resourceIds that fall under one of these prefixes. This list must include at least one item.",
+                                                                "items": {
+                                                                    "type": "string"
+                                                                },
+                                                                "type": "array"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "scopes",
+                                                            "condition",
+                                                            "actions"
+                                                        ]
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An error occurred and the list of activity log alerts could not be retrieved.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "Describes the format of Error response.",
+                                    "properties": {
+                                        "code": {
+                                            "description": "Error code",
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "description": "Error message indicating why the operation failed.",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-ms-examples": {
+                    "List activity log alerts": {
+                        "parameters": {
+                            "api-version": "2017-04-01",
+                            "resourceGroupName": "Default-ActivityLogAlerts",
+                            "subscriptionId": "187f412d-1758-44d9-b052-169e2564721d"
+                        },
+                        "responses": {
+                            "200": {
+                                "body": {
+                                    "value": [
+                                        {
+                                            "id": "/subscriptions/187f412d-1758-44d9-b052-169e2564721d/resourceGroups/Default-ActivityLogAlerts/providers/microsoft.insights/activityLogAlerts/SampleActivityLogAlert",
+                                            "location": "Global",
+                                            "name": "SampleActivityLogAlert",
+                                            "properties": {
+                                                "actions": {
+                                                    "actionGroups": [
+                                                        {
+                                                            "actionGroupId": "/subscriptions/187f412d-1758-44d9-b052-169e2564721d/resourceGroups/Default-ActionGroups/providers/microsoft.insights/actionGroups/SampleActionGroup",
+                                                            "webhookProperties": {
+                                                                "sampleWebhookProperty": "samplePropertyValue"
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                "condition": {
+                                                    "allOf": [
+                                                        {
+                                                            "equals": "Administrative",
+                                                            "field": "Category"
+                                                        },
+                                                        {
+                                                            "equals": "Error",
+                                                            "field": "Level"
+                                                        }
+                                                    ]
+                                                },
+                                                "description": "Sample activity log alert description",
+                                                "enabled": true,
+                                                "scopes": [
+                                                    "subscriptions/187f412d-1758-44d9-b052-169e2564721d"
+                                                ]
+                                            },
+                                            "tags": {},
+                                            "type": "Microsoft.Insights/ActivityLogAlerts"
+                                        },
+                                        {
+                                            "id": "/subscriptions/187f412d-1758-44d9-b052-169e2564721d/resourceGroups/Default-ActivityLogAlerts/providers/microsoft.insights/activityLogAlerts/SampleActivityLogAlert2",
+                                            "location": "Global",
+                                            "name": "SampleActivityLogAlert2",
+                                            "properties": {
+                                                "actions": {
+                                                    "actionGroups": [
+                                                        {
+                                                            "actionGroupId": "/subscriptions/187f412d-1758-44d9-b052-169e2564721d/resourceGroups/Default-ActionGroups/providers/microsoft.insights/actionGroups/SampleActionGroup",
+                                                            "webhookProperties": {}
+                                                        }
+                                                    ]
+                                                },
+                                                "condition": {
+                                                    "allOf": [
+                                                        {
+                                                            "equals": "Administrative",
+                                                            "field": "Category"
+                                                        }
+                                                    ]
+                                                },
+                                                "enabled": true,
+                                                "scopes": [
+                                                    "subscriptions/187f412d-1758-44d9-b052-169e2564721d/resourceGroups/Default-ActivityLogAlerts"
+                                                ]
+                                            },
+                                            "tags": {},
+                                            "type": "Microsoft.Insights/ActivityLogAlerts"
+                                        }
+                                    ]
+                                },
+                                "headers": {}
+                            }
+                        }
+                    }
+                },
+                "x-ms-pageable": {}
+            }
+        },
+        "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/microsoft.insights/activityLogAlerts/{activityLogAlertName}": {
+            "delete": {
+                "description": "Delete an activity log alert.",
+                "operationId": "ActivityLogAlerts_Delete",
+                "parameters": [
+                    {
+                        "description": "The Azure subscription Id.",
+                        "in": "path",
+                        "name": "subscriptionId",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "The name of the resource group.",
+                        "in": "path",
+                        "name": "resourceGroupName",
+                        "required": true,
+                        "x-ms-parameter-location": "method",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "The name of the activity log alert.",
+                        "in": "path",
+                        "name": "activityLogAlertName",
+                        "required": true,
+                        "x-ms-parameter-location": "method",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "Client Api Version.",
+                        "in": "query",
+                        "name": "api-version",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The activity log alert was successfully deleted."
+                    },
+                    "204": {
+                        "description": "The activity log alert does not exist. It may have already been deleted."
+                    },
+                    "default": {
+                        "description": "An error occurred and the activity log alert could not be deleted.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "Describes the format of Error response.",
+                                    "properties": {
+                                        "code": {
+                                            "description": "Error code",
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "description": "Error message indicating why the operation failed.",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-ms-examples": {
+                    "Delete an activity log alert": {
+                        "parameters": {
+                            "activityLogAlertName": "SampleActivityLogAlert",
+                            "api-version": "2017-04-01",
+                            "resourceGroupName": "Default-ActivityLogAlerts",
+                            "subscriptionId": "187f412d-1758-44d9-b052-169e2564721d"
+                        },
+                        "responses": {
+                            "200": {
+                                "body": null,
+                                "headers": {}
+                            },
+                            "204": {
+                                "body": null,
+                                "headers": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "description": "Get an activity log alert.",
+                "operationId": "ActivityLogAlerts_Get",
+                "parameters": [
+                    {
+                        "description": "The Azure subscription Id.",
+                        "in": "path",
+                        "name": "subscriptionId",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "The name of the resource group.",
+                        "in": "path",
+                        "name": "resourceGroupName",
+                        "required": true,
+                        "x-ms-parameter-location": "method",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "The name of the activity log alert.",
+                        "in": "path",
+                        "name": "activityLogAlertName",
+                        "required": true,
+                        "x-ms-parameter-location": "method",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "Client Api Version.",
+                        "in": "query",
+                        "name": "api-version",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The request succeeded.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "description": "An azure resource object",
+                                            "properties": {
+                                                "id": {
+                                                    "description": "Azure resource Id",
+                                                    "readOnly": true,
+                                                    "type": "string"
+                                                },
+                                                "location": {
+                                                    "description": "Resource location",
+                                                    "type": "string",
+                                                    "x-ms-mutability": [
+                                                        "create",
+                                                        "read"
+                                                    ]
+                                                },
+                                                "name": {
+                                                    "description": "Azure resource name",
+                                                    "readOnly": true,
+                                                    "type": "string"
+                                                },
+                                                "tags": {
+                                                    "additionalProperties": {
+                                                        "type": "string"
+                                                    },
+                                                    "description": "Resource tags"
+                                                },
+                                                "type": {
+                                                    "description": "Azure resource type",
+                                                    "readOnly": true,
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "location"
+                                            ],
+                                            "x-ms-azure-resource": true,
+                                            "type": "object"
+                                        }
+                                    ],
+                                    "description": "An activity log alert resource.",
+                                    "properties": {
+                                        "properties": {
+                                            "description": "The activity log alert properties of the resource.",
+                                            "x-ms-client-flatten": true,
+                                            "properties": {
+                                                "actions": {
+                                                    "description": "The actions that will activate when the condition is met.",
+                                                    "properties": {
+                                                        "actionGroups": {
+                                                            "description": "The list of activity log alerts.",
+                                                            "items": {
+                                                                "description": "A pointer to an Azure Action Group.",
+                                                                "properties": {
+                                                                    "actionGroupId": {
+                                                                        "description": "The resourceId of the action group. This cannot be null or empty.",
+                                                                        "type": "string"
+                                                                    },
+                                                                    "webhookProperties": {
+                                                                        "additionalProperties": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "description": "the dictionary of custom properties to include with the post operation. These data are appended to the webhook payload."
+                                                                    }
+                                                                },
+                                                                "required": [
+                                                                    "actionGroupId"
+                                                                ],
+                                                                "type": "object"
+                                                            },
+                                                            "type": "array"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "condition": {
+                                                    "description": "The condition that will cause this alert to activate.",
+                                                    "properties": {
+                                                        "allOf": {
+                                                            "description": "The list of activity log alert conditions.",
+                                                            "items": {
+                                                                "description": "An Activity Log alert condition that is met by comparing an activity log field and value.",
+                                                                "properties": {
+                                                                    "equals": {
+                                                                        "description": "The field value will be compared to this value (case-insensitive) to determine if the condition is met.",
+                                                                        "type": "string"
+                                                                    },
+                                                                    "field": {
+                                                                        "description": "The name of the field that this condition will examine. The possible values for this field are (case-insensitive): 'resourceId', 'category', 'caller', 'level', 'operationName', 'resourceGroup', 'resourceProvider', 'status', 'subStatus', 'resourceType', or anything beginning with 'properties.'.",
+                                                                        "type": "string"
+                                                                    }
+                                                                },
+                                                                "required": [
+                                                                    "field",
+                                                                    "equals"
+                                                                ],
+                                                                "type": "object"
+                                                            },
+                                                            "type": "array"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "allOf"
+                                                    ],
+                                                    "type": "object"
+                                                },
+                                                "description": {
+                                                    "description": "A description of this activity log alert.",
+                                                    "type": "string"
+                                                },
+                                                "enabled": {
+                                                    "default": true,
+                                                    "description": "Indicates whether this activity log alert is enabled. If an activity log alert is not enabled, then none of its actions will be activated.",
+                                                    "type": "boolean"
+                                                },
+                                                "scopes": {
+                                                    "description": "A list of resourceIds that will be used as prefixes. The alert will only apply to activityLogs with resourceIds that fall under one of these prefixes. This list must include at least one item.",
+                                                    "items": {
+                                                        "type": "string"
+                                                    },
+                                                    "type": "array"
+                                                }
+                                            },
+                                            "required": [
+                                                "scopes",
+                                                "condition",
+                                                "actions"
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An error occurred and the activity log alert could not be retrieved.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "Describes the format of Error response.",
+                                    "properties": {
+                                        "code": {
+                                            "description": "Error code",
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "description": "Error message indicating why the operation failed.",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-ms-examples": {
+                    "Get an activity log alert": {
+                        "parameters": {
+                            "activityLogAlertName": "SampleActivityLogAlert",
+                            "api-version": "2017-04-01",
+                            "resourceGroupName": "Default-ActivityLogAlerts",
+                            "subscriptionId": "187f412d-1758-44d9-b052-169e2564721d"
+                        },
+                        "responses": {
+                            "200": {
+                                "body": {
+                                    "id": "/subscriptions/187f412d-1758-44d9-b052-169e2564721d/resourceGroups/Default-ActivityLogAlerts/providers/microsoft.insights/activityLogAlerts/SampleActivityLogAlert",
+                                    "location": "Global",
+                                    "name": "SampleActivityLogAlert",
+                                    "properties": {
+                                        "actions": {
+                                            "actionGroups": [
+                                                {
+                                                    "actionGroupId": "/subscriptions/187f412d-1758-44d9-b052-169e2564721d/resourceGroups/Default-ActionGroups/providers/microsoft.insights/actionGroups/SampleActionGroup",
+                                                    "webhookProperties": {
+                                                        "sampleWebhookProperty": "samplePropertyValue"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "condition": {
+                                            "allOf": [
+                                                {
+                                                    "equals": "Administrative",
+                                                    "field": "Category"
+                                                },
+                                                {
+                                                    "equals": "Error",
+                                                    "field": "Level"
+                                                }
+                                            ]
+                                        },
+                                        "description": "Sample activity log alert description",
+                                        "enabled": true,
+                                        "scopes": [
+                                            "subscriptions/187f412d-1758-44d9-b052-169e2564721d"
+                                        ]
+                                    },
+                                    "tags": {},
+                                    "type": "Microsoft.Insights/ActivityLogAlerts"
+                                },
+                                "headers": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "Updates an existing ActivityLogAlertResource's tags. To update other fields use the CreateOrUpdate method.",
+                "operationId": "ActivityLogAlerts_Update",
+                "parameters": [
+                    {
+                        "description": "The Azure subscription Id.",
+                        "in": "path",
+                        "name": "subscriptionId",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "The name of the resource group.",
+                        "in": "path",
+                        "name": "resourceGroupName",
+                        "required": true,
+                        "x-ms-parameter-location": "method",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "The name of the activity log alert.",
+                        "in": "path",
+                        "name": "activityLogAlertName",
+                        "required": true,
+                        "x-ms-parameter-location": "method",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "Client Api Version.",
+                        "in": "query",
+                        "name": "api-version",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An existing activity log alert was successfully updated.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "description": "An azure resource object",
+                                            "properties": {
+                                                "id": {
+                                                    "description": "Azure resource Id",
+                                                    "readOnly": true,
+                                                    "type": "string"
+                                                },
+                                                "location": {
+                                                    "description": "Resource location",
+                                                    "type": "string",
+                                                    "x-ms-mutability": [
+                                                        "create",
+                                                        "read"
+                                                    ]
+                                                },
+                                                "name": {
+                                                    "description": "Azure resource name",
+                                                    "readOnly": true,
+                                                    "type": "string"
+                                                },
+                                                "tags": {
+                                                    "additionalProperties": {
+                                                        "type": "string"
+                                                    },
+                                                    "description": "Resource tags"
+                                                },
+                                                "type": {
+                                                    "description": "Azure resource type",
+                                                    "readOnly": true,
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "location"
+                                            ],
+                                            "x-ms-azure-resource": true,
+                                            "type": "object"
+                                        }
+                                    ],
+                                    "description": "An activity log alert resource.",
+                                    "properties": {
+                                        "properties": {
+                                            "description": "The activity log alert properties of the resource.",
+                                            "x-ms-client-flatten": true,
+                                            "properties": {
+                                                "actions": {
+                                                    "description": "The actions that will activate when the condition is met.",
+                                                    "properties": {
+                                                        "actionGroups": {
+                                                            "description": "The list of activity log alerts.",
+                                                            "items": {
+                                                                "description": "A pointer to an Azure Action Group.",
+                                                                "properties": {
+                                                                    "actionGroupId": {
+                                                                        "description": "The resourceId of the action group. This cannot be null or empty.",
+                                                                        "type": "string"
+                                                                    },
+                                                                    "webhookProperties": {
+                                                                        "additionalProperties": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "description": "the dictionary of custom properties to include with the post operation. These data are appended to the webhook payload."
+                                                                    }
+                                                                },
+                                                                "required": [
+                                                                    "actionGroupId"
+                                                                ],
+                                                                "type": "object"
+                                                            },
+                                                            "type": "array"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "condition": {
+                                                    "description": "The condition that will cause this alert to activate.",
+                                                    "properties": {
+                                                        "allOf": {
+                                                            "description": "The list of activity log alert conditions.",
+                                                            "items": {
+                                                                "description": "An Activity Log alert condition that is met by comparing an activity log field and value.",
+                                                                "properties": {
+                                                                    "equals": {
+                                                                        "description": "The field value will be compared to this value (case-insensitive) to determine if the condition is met.",
+                                                                        "type": "string"
+                                                                    },
+                                                                    "field": {
+                                                                        "description": "The name of the field that this condition will examine. The possible values for this field are (case-insensitive): 'resourceId', 'category', 'caller', 'level', 'operationName', 'resourceGroup', 'resourceProvider', 'status', 'subStatus', 'resourceType', or anything beginning with 'properties.'.",
+                                                                        "type": "string"
+                                                                    }
+                                                                },
+                                                                "required": [
+                                                                    "field",
+                                                                    "equals"
+                                                                ],
+                                                                "type": "object"
+                                                            },
+                                                            "type": "array"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "allOf"
+                                                    ],
+                                                    "type": "object"
+                                                },
+                                                "description": {
+                                                    "description": "A description of this activity log alert.",
+                                                    "type": "string"
+                                                },
+                                                "enabled": {
+                                                    "default": true,
+                                                    "description": "Indicates whether this activity log alert is enabled. If an activity log alert is not enabled, then none of its actions will be activated.",
+                                                    "type": "boolean"
+                                                },
+                                                "scopes": {
+                                                    "description": "A list of resourceIds that will be used as prefixes. The alert will only apply to activityLogs with resourceIds that fall under one of these prefixes. This list must include at least one item.",
+                                                    "items": {
+                                                        "type": "string"
+                                                    },
+                                                    "type": "array"
+                                                }
+                                            },
+                                            "required": [
+                                                "scopes",
+                                                "condition",
+                                                "actions"
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error response describing why the operation failed.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "Describes the format of Error response.",
+                                    "properties": {
+                                        "code": {
+                                            "description": "Error code",
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "description": "Error message indicating why the operation failed.",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-ms-examples": {
+                    "Patch an activity log alert": {
+                        "parameters": {
+                            "activityLogAlertName": "SampleActivityLogAlert",
+                            "activityLogAlertPatch": {
+                                "properties": {
+                                    "enabled": false
+                                },
+                                "tags": {
+                                    "key1": "value1",
+                                    "key2": "value2"
+                                }
+                            },
+                            "api-version": "2017-03-01-preview",
+                            "resourceGroupName": "Default-ActivityLogAlerts",
+                            "subscriptionId": "187f412d-1758-44d9-b052-169e2564721d"
+                        },
+                        "responses": {
+                            "200": {
+                                "body": {
+                                    "id": "/subscriptions/187f412d-1758-44d9-b052-169e2564721d/resourceGroups/Default-ActivityLogAlerts/providers/microsoft.insights/activityLogAlerts/SampleActivityLogAlert",
+                                    "location": "Global",
+                                    "name": "SampleActivityLogAlert",
+                                    "properties": {
+                                        "actions": {
+                                            "actionGroups": [
+                                                {
+                                                    "actionGroupId": "/subscriptions/187f412d-1758-44d9-b052-169e2564721d/resourceGroups/Default-ActionGroups/providers/microsoft.insights/actionGroups/SampleActionGroup",
+                                                    "webhookProperties": {
+                                                        "sampleWebhookProperty": "samplePropertyValue"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "condition": {
+                                            "allOf": [
+                                                {
+                                                    "equals": "Administrative",
+                                                    "field": "Category"
+                                                },
+                                                {
+                                                    "equals": "Error",
+                                                    "field": "Level"
+                                                }
+                                            ]
+                                        },
+                                        "description": "Sample activity log alert description",
+                                        "enabled": false,
+                                        "scopes": [
+                                            "/subscriptions/187f412d-1758-44d9-b052-169e2564721d"
+                                        ]
+                                    },
+                                    "tags": {
+                                        "key1": "value1",
+                                        "key2": "value2"
+                                    },
+                                    "type": "Microsoft.Insights/ActivityLogAlerts"
+                                },
+                                "headers": {}
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "description": "An activity log alert object for the body of patch operations.",
+                                "properties": {
+                                    "properties": {
+                                        "description": "The activity log alert settings for an update operation.",
+                                        "x-ms-client-flatten": true,
+                                        "properties": {
+                                            "enabled": {
+                                                "default": true,
+                                                "description": "Indicates whether this activity log alert is enabled. If an activity log alert is not enabled, then none of its actions will be activated.",
+                                                "type": "boolean"
+                                            }
+                                        }
+                                    },
+                                    "tags": {
+                                        "additionalProperties": {
+                                            "type": "string"
+                                        },
+                                        "description": "Resource tags"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    },
+                    "description": "Parameters supplied to the operation.",
+                    "required": true
+                }
+            },
+            "put": {
+                "description": "Create a new activity log alert or update an existing one.",
+                "operationId": "ActivityLogAlerts_CreateOrUpdate",
+                "parameters": [
+                    {
+                        "description": "The Azure subscription Id.",
+                        "in": "path",
+                        "name": "subscriptionId",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "The name of the resource group.",
+                        "in": "path",
+                        "name": "resourceGroupName",
+                        "required": true,
+                        "x-ms-parameter-location": "method",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "The name of the activity log alert.",
+                        "in": "path",
+                        "name": "activityLogAlertName",
+                        "required": true,
+                        "x-ms-parameter-location": "method",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "Client Api Version.",
+                        "in": "query",
+                        "name": "api-version",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An existing activity log alert was successfully updated.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "description": "An azure resource object",
+                                            "properties": {
+                                                "id": {
+                                                    "description": "Azure resource Id",
+                                                    "readOnly": true,
+                                                    "type": "string"
+                                                },
+                                                "location": {
+                                                    "description": "Resource location",
+                                                    "type": "string",
+                                                    "x-ms-mutability": [
+                                                        "create",
+                                                        "read"
+                                                    ]
+                                                },
+                                                "name": {
+                                                    "description": "Azure resource name",
+                                                    "readOnly": true,
+                                                    "type": "string"
+                                                },
+                                                "tags": {
+                                                    "additionalProperties": {
+                                                        "type": "string"
+                                                    },
+                                                    "description": "Resource tags"
+                                                },
+                                                "type": {
+                                                    "description": "Azure resource type",
+                                                    "readOnly": true,
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "location"
+                                            ],
+                                            "x-ms-azure-resource": true,
+                                            "type": "object"
+                                        }
+                                    ],
+                                    "description": "An activity log alert resource.",
+                                    "properties": {
+                                        "properties": {
+                                            "description": "The activity log alert properties of the resource.",
+                                            "x-ms-client-flatten": true,
+                                            "properties": {
+                                                "actions": {
+                                                    "description": "The actions that will activate when the condition is met.",
+                                                    "properties": {
+                                                        "actionGroups": {
+                                                            "description": "The list of activity log alerts.",
+                                                            "items": {
+                                                                "description": "A pointer to an Azure Action Group.",
+                                                                "properties": {
+                                                                    "actionGroupId": {
+                                                                        "description": "The resourceId of the action group. This cannot be null or empty.",
+                                                                        "type": "string"
+                                                                    },
+                                                                    "webhookProperties": {
+                                                                        "additionalProperties": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "description": "the dictionary of custom properties to include with the post operation. These data are appended to the webhook payload."
+                                                                    }
+                                                                },
+                                                                "required": [
+                                                                    "actionGroupId"
+                                                                ],
+                                                                "type": "object"
+                                                            },
+                                                            "type": "array"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "condition": {
+                                                    "description": "The condition that will cause this alert to activate.",
+                                                    "properties": {
+                                                        "allOf": {
+                                                            "description": "The list of activity log alert conditions.",
+                                                            "items": {
+                                                                "description": "An Activity Log alert condition that is met by comparing an activity log field and value.",
+                                                                "properties": {
+                                                                    "equals": {
+                                                                        "description": "The field value will be compared to this value (case-insensitive) to determine if the condition is met.",
+                                                                        "type": "string"
+                                                                    },
+                                                                    "field": {
+                                                                        "description": "The name of the field that this condition will examine. The possible values for this field are (case-insensitive): 'resourceId', 'category', 'caller', 'level', 'operationName', 'resourceGroup', 'resourceProvider', 'status', 'subStatus', 'resourceType', or anything beginning with 'properties.'.",
+                                                                        "type": "string"
+                                                                    }
+                                                                },
+                                                                "required": [
+                                                                    "field",
+                                                                    "equals"
+                                                                ],
+                                                                "type": "object"
+                                                            },
+                                                            "type": "array"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "allOf"
+                                                    ],
+                                                    "type": "object"
+                                                },
+                                                "description": {
+                                                    "description": "A description of this activity log alert.",
+                                                    "type": "string"
+                                                },
+                                                "enabled": {
+                                                    "default": true,
+                                                    "description": "Indicates whether this activity log alert is enabled. If an activity log alert is not enabled, then none of its actions will be activated.",
+                                                    "type": "boolean"
+                                                },
+                                                "scopes": {
+                                                    "description": "A list of resourceIds that will be used as prefixes. The alert will only apply to activityLogs with resourceIds that fall under one of these prefixes. This list must include at least one item.",
+                                                    "items": {
+                                                        "type": "string"
+                                                    },
+                                                    "type": "array"
+                                                }
+                                            },
+                                            "required": [
+                                                "scopes",
+                                                "condition",
+                                                "actions"
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "A new activity log alert was successfully created.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "description": "An azure resource object",
+                                            "properties": {
+                                                "id": {
+                                                    "description": "Azure resource Id",
+                                                    "readOnly": true,
+                                                    "type": "string"
+                                                },
+                                                "location": {
+                                                    "description": "Resource location",
+                                                    "type": "string",
+                                                    "x-ms-mutability": [
+                                                        "create",
+                                                        "read"
+                                                    ]
+                                                },
+                                                "name": {
+                                                    "description": "Azure resource name",
+                                                    "readOnly": true,
+                                                    "type": "string"
+                                                },
+                                                "tags": {
+                                                    "additionalProperties": {
+                                                        "type": "string"
+                                                    },
+                                                    "description": "Resource tags"
+                                                },
+                                                "type": {
+                                                    "description": "Azure resource type",
+                                                    "readOnly": true,
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "location"
+                                            ],
+                                            "x-ms-azure-resource": true,
+                                            "type": "object"
+                                        }
+                                    ],
+                                    "description": "An activity log alert resource.",
+                                    "properties": {
+                                        "properties": {
+                                            "description": "The activity log alert properties of the resource.",
+                                            "x-ms-client-flatten": true,
+                                            "properties": {
+                                                "actions": {
+                                                    "description": "The actions that will activate when the condition is met.",
+                                                    "properties": {
+                                                        "actionGroups": {
+                                                            "description": "The list of activity log alerts.",
+                                                            "items": {
+                                                                "description": "A pointer to an Azure Action Group.",
+                                                                "properties": {
+                                                                    "actionGroupId": {
+                                                                        "description": "The resourceId of the action group. This cannot be null or empty.",
+                                                                        "type": "string"
+                                                                    },
+                                                                    "webhookProperties": {
+                                                                        "additionalProperties": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "description": "the dictionary of custom properties to include with the post operation. These data are appended to the webhook payload."
+                                                                    }
+                                                                },
+                                                                "required": [
+                                                                    "actionGroupId"
+                                                                ],
+                                                                "type": "object"
+                                                            },
+                                                            "type": "array"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "condition": {
+                                                    "description": "The condition that will cause this alert to activate.",
+                                                    "properties": {
+                                                        "allOf": {
+                                                            "description": "The list of activity log alert conditions.",
+                                                            "items": {
+                                                                "description": "An Activity Log alert condition that is met by comparing an activity log field and value.",
+                                                                "properties": {
+                                                                    "equals": {
+                                                                        "description": "The field value will be compared to this value (case-insensitive) to determine if the condition is met.",
+                                                                        "type": "string"
+                                                                    },
+                                                                    "field": {
+                                                                        "description": "The name of the field that this condition will examine. The possible values for this field are (case-insensitive): 'resourceId', 'category', 'caller', 'level', 'operationName', 'resourceGroup', 'resourceProvider', 'status', 'subStatus', 'resourceType', or anything beginning with 'properties.'.",
+                                                                        "type": "string"
+                                                                    }
+                                                                },
+                                                                "required": [
+                                                                    "field",
+                                                                    "equals"
+                                                                ],
+                                                                "type": "object"
+                                                            },
+                                                            "type": "array"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "allOf"
+                                                    ],
+                                                    "type": "object"
+                                                },
+                                                "description": {
+                                                    "description": "A description of this activity log alert.",
+                                                    "type": "string"
+                                                },
+                                                "enabled": {
+                                                    "default": true,
+                                                    "description": "Indicates whether this activity log alert is enabled. If an activity log alert is not enabled, then none of its actions will be activated.",
+                                                    "type": "boolean"
+                                                },
+                                                "scopes": {
+                                                    "description": "A list of resourceIds that will be used as prefixes. The alert will only apply to activityLogs with resourceIds that fall under one of these prefixes. This list must include at least one item.",
+                                                    "items": {
+                                                        "type": "string"
+                                                    },
+                                                    "type": "array"
+                                                }
+                                            },
+                                            "required": [
+                                                "scopes",
+                                                "condition",
+                                                "actions"
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An error occurred and the activity log alert could not be created or updated.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "Describes the format of Error response.",
+                                    "properties": {
+                                        "code": {
+                                            "description": "Error code",
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "description": "Error message indicating why the operation failed.",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-ms-examples": {
+                    "Create or update an activity log alert": {
+                        "parameters": {
+                            "activityLogAlert": {
+                                "location": "Global",
+                                "properties": {
+                                    "actions": {
+                                        "actionGroups": [
+                                            {
+                                                "actionGroupId": "/subscriptions/187f412d-1758-44d9-b052-169e2564721d/resourceGroups/Default-ActionGroups/providers/microsoft.insights/actionGroups/SampleActionGroup",
+                                                "webhookProperties": {
+                                                    "sampleWebhookProperty": "samplePropertyValue"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "condition": {
+                                        "allOf": [
+                                            {
+                                                "equals": "Administrative",
+                                                "field": "Category"
+                                            },
+                                            {
+                                                "equals": "Error",
+                                                "field": "Level"
+                                            }
+                                        ]
+                                    },
+                                    "description": "Sample activity log alert description",
+                                    "enabled": true,
+                                    "scopes": [
+                                        "subscriptions/187f412d-1758-44d9-b052-169e2564721d"
+                                    ]
+                                },
+                                "tags": {}
+                            },
+                            "activityLogAlertName": "SampleActivityLogAlert",
+                            "api-version": "2017-04-01",
+                            "resourceGroupName": "Default-ActivityLogAlerts",
+                            "subscriptionId": "187f412d-1758-44d9-b052-169e2564721d"
+                        },
+                        "responses": {
+                            "200": {
+                                "body": {
+                                    "id": "/subscriptions/187f412d-1758-44d9-b052-169e2564721d/resourceGroups/Default-ActivityLogAlerts/providers/microsoft.insights/activityLogAlerts/SampleActivityLogAlert",
+                                    "location": "Global",
+                                    "name": "SampleActivityLogAlert",
+                                    "properties": {
+                                        "actions": {
+                                            "actionGroups": [
+                                                {
+                                                    "actionGroupId": "/subscriptions/187f412d-1758-44d9-b052-169e2564721d/resourceGroups/Default-ActionGroups/providers/microsoft.insights/actionGroups/SampleActionGroup",
+                                                    "webhookProperties": {
+                                                        "sampleWebhookProperty": "samplePropertyValue"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "condition": {
+                                            "allOf": [
+                                                {
+                                                    "equals": "Administrative",
+                                                    "field": "Category"
+                                                },
+                                                {
+                                                    "equals": "Error",
+                                                    "field": "Level"
+                                                }
+                                            ]
+                                        },
+                                        "description": "Sample activity log alert description",
+                                        "enabled": true,
+                                        "scopes": [
+                                            "subscriptions/187f412d-1758-44d9-b052-169e2564721d"
+                                        ]
+                                    },
+                                    "tags": {},
+                                    "type": "Microsoft.Insights/ActivityLogAlerts"
+                                },
+                                "headers": {}
+                            },
+                            "201": {
+                                "body": {
+                                    "id": "/subscriptions/187f412d-1758-44d9-b052-169e2564721d/resourceGroups/Default-NotificationRules/providers/microsoft.insights/activityLogAlerts/SampleActivityLogAlert",
+                                    "location": "Global",
+                                    "name": "SampleActivityLogAlert",
+                                    "properties": {
+                                        "actions": {
+                                            "actionGroups": [
+                                                {
+                                                    "actionGroupId": "/subscriptions/187f412d-1758-44d9-b052-169e2564721d/resourceGroups/Default-ActionGroups/providers/microsoft.insights/actionGroups/SampleActionGroup",
+                                                    "webhookProperties": {
+                                                        "sampleWebhookProperty": "samplePropertyValue"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "condition": {
+                                            "allOf": [
+                                                {
+                                                    "equals": "Administrative",
+                                                    "field": "Category"
+                                                },
+                                                {
+                                                    "equals": "Error",
+                                                    "field": "Level"
+                                                }
+                                            ]
+                                        },
+                                        "description": "Sample activity log alert description",
+                                        "enabled": true,
+                                        "scopes": [
+                                            "subscriptions/187f412d-1758-44d9-b052-169e2564721d"
+                                        ]
+                                    },
+                                    "tags": {},
+                                    "type": "Microsoft.Insights/ActivityLogAlerts"
+                                },
+                                "headers": {}
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "description": "An azure resource object",
+                                        "properties": {
+                                            "id": {
+                                                "description": "Azure resource Id",
+                                                "readOnly": true,
+                                                "type": "string"
+                                            },
+                                            "location": {
+                                                "description": "Resource location",
+                                                "type": "string",
+                                                "x-ms-mutability": [
+                                                    "create",
+                                                    "read"
+                                                ]
+                                            },
+                                            "name": {
+                                                "description": "Azure resource name",
+                                                "readOnly": true,
+                                                "type": "string"
+                                            },
+                                            "tags": {
+                                                "additionalProperties": {
+                                                    "type": "string"
+                                                },
+                                                "description": "Resource tags"
+                                            },
+                                            "type": {
+                                                "description": "Azure resource type",
+                                                "readOnly": true,
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "location"
+                                        ],
+                                        "x-ms-azure-resource": true,
+                                        "type": "object"
+                                    }
+                                ],
+                                "description": "An activity log alert resource.",
+                                "properties": {
+                                    "properties": {
+                                        "description": "The activity log alert properties of the resource.",
+                                        "x-ms-client-flatten": true,
+                                        "properties": {
+                                            "actions": {
+                                                "description": "The actions that will activate when the condition is met.",
+                                                "properties": {
+                                                    "actionGroups": {
+                                                        "description": "The list of activity log alerts.",
+                                                        "items": {
+                                                            "description": "A pointer to an Azure Action Group.",
+                                                            "properties": {
+                                                                "actionGroupId": {
+                                                                    "description": "The resourceId of the action group. This cannot be null or empty.",
+                                                                    "type": "string"
+                                                                },
+                                                                "webhookProperties": {
+                                                                    "additionalProperties": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "description": "the dictionary of custom properties to include with the post operation. These data are appended to the webhook payload."
+                                                                }
+                                                            },
+                                                            "required": [
+                                                                "actionGroupId"
+                                                            ],
+                                                            "type": "object"
+                                                        },
+                                                        "type": "array"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "condition": {
+                                                "description": "The condition that will cause this alert to activate.",
+                                                "properties": {
+                                                    "allOf": {
+                                                        "description": "The list of activity log alert conditions.",
+                                                        "items": {
+                                                            "description": "An Activity Log alert condition that is met by comparing an activity log field and value.",
+                                                            "properties": {
+                                                                "equals": {
+                                                                    "description": "The field value will be compared to this value (case-insensitive) to determine if the condition is met.",
+                                                                    "type": "string"
+                                                                },
+                                                                "field": {
+                                                                    "description": "The name of the field that this condition will examine. The possible values for this field are (case-insensitive): 'resourceId', 'category', 'caller', 'level', 'operationName', 'resourceGroup', 'resourceProvider', 'status', 'subStatus', 'resourceType', or anything beginning with 'properties.'.",
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "required": [
+                                                                "field",
+                                                                "equals"
+                                                            ],
+                                                            "type": "object"
+                                                        },
+                                                        "type": "array"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "allOf"
+                                                ],
+                                                "type": "object"
+                                            },
+                                            "description": {
+                                                "description": "A description of this activity log alert.",
+                                                "type": "string"
+                                            },
+                                            "enabled": {
+                                                "default": true,
+                                                "description": "Indicates whether this activity log alert is enabled. If an activity log alert is not enabled, then none of its actions will be activated.",
+                                                "type": "boolean"
+                                            },
+                                            "scopes": {
+                                                "description": "A list of resourceIds that will be used as prefixes. The alert will only apply to activityLogs with resourceIds that fall under one of these prefixes. This list must include at least one item.",
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "type": "array"
+                                            }
+                                        },
+                                        "required": [
+                                            "scopes",
+                                            "condition",
+                                            "actions"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    },
+                    "description": "The activity log alert to create or use for the update.",
+                    "required": true
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ActivityLogAlert": {
+                "description": "An Azure activity log alert.",
+                "properties": {
+                    "actions": {
+                        "description": "The actions that will activate when the condition is met.",
+                        "properties": {
+                            "actionGroups": {
+                                "description": "The list of activity log alerts.",
+                                "items": {
+                                    "description": "A pointer to an Azure Action Group.",
+                                    "properties": {
+                                        "actionGroupId": {
+                                            "description": "The resourceId of the action group. This cannot be null or empty.",
+                                            "type": "string"
+                                        },
+                                        "webhookProperties": {
+                                            "additionalProperties": {
+                                                "type": "string"
+                                            },
+                                            "description": "the dictionary of custom properties to include with the post operation. These data are appended to the webhook payload."
+                                        }
+                                    },
+                                    "required": [
+                                        "actionGroupId"
+                                    ],
+                                    "type": "object"
+                                },
+                                "type": "array"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "condition": {
+                        "description": "The condition that will cause this alert to activate.",
+                        "properties": {
+                            "allOf": {
+                                "description": "The list of activity log alert conditions.",
+                                "items": {
+                                    "description": "An Activity Log alert condition that is met by comparing an activity log field and value.",
+                                    "properties": {
+                                        "equals": {
+                                            "description": "The field value will be compared to this value (case-insensitive) to determine if the condition is met.",
+                                            "type": "string"
+                                        },
+                                        "field": {
+                                            "description": "The name of the field that this condition will examine. The possible values for this field are (case-insensitive): 'resourceId', 'category', 'caller', 'level', 'operationName', 'resourceGroup', 'resourceProvider', 'status', 'subStatus', 'resourceType', or anything beginning with 'properties.'.",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "field",
+                                        "equals"
+                                    ],
+                                    "type": "object"
+                                },
+                                "type": "array"
+                            }
+                        },
+                        "required": [
+                            "allOf"
+                        ],
+                        "type": "object"
+                    },
+                    "description": {
+                        "description": "A description of this activity log alert.",
+                        "type": "string"
+                    },
+                    "enabled": {
+                        "default": true,
+                        "description": "Indicates whether this activity log alert is enabled. If an activity log alert is not enabled, then none of its actions will be activated.",
+                        "type": "boolean"
+                    },
+                    "scopes": {
+                        "description": "A list of resourceIds that will be used as prefixes. The alert will only apply to activityLogs with resourceIds that fall under one of these prefixes. This list must include at least one item.",
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "scopes",
+                    "condition",
+                    "actions"
+                ],
+                "type": "object"
+            },
+            "ActivityLogAlertActionGroup": {
+                "description": "A pointer to an Azure Action Group.",
+                "properties": {
+                    "actionGroupId": {
+                        "description": "The resourceId of the action group. This cannot be null or empty.",
+                        "type": "string"
+                    },
+                    "webhookProperties": {
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "the dictionary of custom properties to include with the post operation. These data are appended to the webhook payload."
+                    }
+                },
+                "required": [
+                    "actionGroupId"
+                ],
+                "type": "object"
+            },
+            "ActivityLogAlertActionList": {
+                "description": "A list of activity log alert actions.",
+                "properties": {
+                    "actionGroups": {
+                        "description": "The list of activity log alerts.",
+                        "items": {
+                            "description": "A pointer to an Azure Action Group.",
+                            "properties": {
+                                "actionGroupId": {
+                                    "description": "The resourceId of the action group. This cannot be null or empty.",
+                                    "type": "string"
+                                },
+                                "webhookProperties": {
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    },
+                                    "description": "the dictionary of custom properties to include with the post operation. These data are appended to the webhook payload."
+                                }
+                            },
+                            "required": [
+                                "actionGroupId"
+                            ],
+                            "type": "object"
+                        },
+                        "type": "array"
+                    }
+                },
+                "type": "object"
+            },
+            "ActivityLogAlertAllOfCondition": {
+                "description": "An Activity Log alert condition that is met when all its member conditions are met.",
+                "properties": {
+                    "allOf": {
+                        "description": "The list of activity log alert conditions.",
+                        "items": {
+                            "description": "An Activity Log alert condition that is met by comparing an activity log field and value.",
+                            "properties": {
+                                "equals": {
+                                    "description": "The field value will be compared to this value (case-insensitive) to determine if the condition is met.",
+                                    "type": "string"
+                                },
+                                "field": {
+                                    "description": "The name of the field that this condition will examine. The possible values for this field are (case-insensitive): 'resourceId', 'category', 'caller', 'level', 'operationName', 'resourceGroup', 'resourceProvider', 'status', 'subStatus', 'resourceType', or anything beginning with 'properties.'.",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "field",
+                                "equals"
+                            ],
+                            "type": "object"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "allOf"
+                ],
+                "type": "object"
+            },
+            "ActivityLogAlertLeafCondition": {
+                "description": "An Activity Log alert condition that is met by comparing an activity log field and value.",
+                "properties": {
+                    "equals": {
+                        "description": "The field value will be compared to this value (case-insensitive) to determine if the condition is met.",
+                        "type": "string"
+                    },
+                    "field": {
+                        "description": "The name of the field that this condition will examine. The possible values for this field are (case-insensitive): 'resourceId', 'category', 'caller', 'level', 'operationName', 'resourceGroup', 'resourceProvider', 'status', 'subStatus', 'resourceType', or anything beginning with 'properties.'.",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "field",
+                    "equals"
+                ],
+                "type": "object"
+            },
+            "ActivityLogAlertList": {
+                "description": "A list of activity log alerts.",
+                "properties": {
+                    "nextLink": {
+                        "description": "Provides the link to retrieve the next set of elements.",
+                        "type": "string"
+                    },
+                    "value": {
+                        "description": "The list of activity log alerts.",
+                        "items": {
+                            "allOf": [
+                                {
+                                    "description": "An azure resource object",
+                                    "properties": {
+                                        "id": {
+                                            "description": "Azure resource Id",
+                                            "readOnly": true,
+                                            "type": "string"
+                                        },
+                                        "location": {
+                                            "description": "Resource location",
+                                            "type": "string",
+                                            "x-ms-mutability": [
+                                                "create",
+                                                "read"
+                                            ]
+                                        },
+                                        "name": {
+                                            "description": "Azure resource name",
+                                            "readOnly": true,
+                                            "type": "string"
+                                        },
+                                        "tags": {
+                                            "additionalProperties": {
+                                                "type": "string"
+                                            },
+                                            "description": "Resource tags"
+                                        },
+                                        "type": {
+                                            "description": "Azure resource type",
+                                            "readOnly": true,
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "location"
+                                    ],
+                                    "x-ms-azure-resource": true,
+                                    "type": "object"
+                                }
+                            ],
+                            "description": "An activity log alert resource.",
+                            "properties": {
+                                "properties": {
+                                    "description": "The activity log alert properties of the resource.",
+                                    "x-ms-client-flatten": true,
+                                    "properties": {
+                                        "actions": {
+                                            "description": "The actions that will activate when the condition is met.",
+                                            "properties": {
+                                                "actionGroups": {
+                                                    "description": "The list of activity log alerts.",
+                                                    "items": {
+                                                        "description": "A pointer to an Azure Action Group.",
+                                                        "properties": {
+                                                            "actionGroupId": {
+                                                                "description": "The resourceId of the action group. This cannot be null or empty.",
+                                                                "type": "string"
+                                                            },
+                                                            "webhookProperties": {
+                                                                "additionalProperties": {
+                                                                    "type": "string"
+                                                                },
+                                                                "description": "the dictionary of custom properties to include with the post operation. These data are appended to the webhook payload."
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "actionGroupId"
+                                                        ],
+                                                        "type": "object"
+                                                    },
+                                                    "type": "array"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "condition": {
+                                            "description": "The condition that will cause this alert to activate.",
+                                            "properties": {
+                                                "allOf": {
+                                                    "description": "The list of activity log alert conditions.",
+                                                    "items": {
+                                                        "description": "An Activity Log alert condition that is met by comparing an activity log field and value.",
+                                                        "properties": {
+                                                            "equals": {
+                                                                "description": "The field value will be compared to this value (case-insensitive) to determine if the condition is met.",
+                                                                "type": "string"
+                                                            },
+                                                            "field": {
+                                                                "description": "The name of the field that this condition will examine. The possible values for this field are (case-insensitive): 'resourceId', 'category', 'caller', 'level', 'operationName', 'resourceGroup', 'resourceProvider', 'status', 'subStatus', 'resourceType', or anything beginning with 'properties.'.",
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "field",
+                                                            "equals"
+                                                        ],
+                                                        "type": "object"
+                                                    },
+                                                    "type": "array"
+                                                }
+                                            },
+                                            "required": [
+                                                "allOf"
+                                            ],
+                                            "type": "object"
+                                        },
+                                        "description": {
+                                            "description": "A description of this activity log alert.",
+                                            "type": "string"
+                                        },
+                                        "enabled": {
+                                            "default": true,
+                                            "description": "Indicates whether this activity log alert is enabled. If an activity log alert is not enabled, then none of its actions will be activated.",
+                                            "type": "boolean"
+                                        },
+                                        "scopes": {
+                                            "description": "A list of resourceIds that will be used as prefixes. The alert will only apply to activityLogs with resourceIds that fall under one of these prefixes. This list must include at least one item.",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "type": "array"
+                                        }
+                                    },
+                                    "required": [
+                                        "scopes",
+                                        "condition",
+                                        "actions"
+                                    ]
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    }
+                },
+                "type": "object"
+            },
+            "ActivityLogAlertPatch": {
+                "description": "An Azure activity log alert for patch operations.",
+                "properties": {
+                    "enabled": {
+                        "default": true,
+                        "description": "Indicates whether this activity log alert is enabled. If an activity log alert is not enabled, then none of its actions will be activated.",
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
+            },
+            "ActivityLogAlertPatchBody": {
+                "description": "An activity log alert object for the body of patch operations.",
+                "properties": {
+                    "properties": {
+                        "description": "The activity log alert settings for an update operation.",
+                        "x-ms-client-flatten": true,
+                        "properties": {
+                            "enabled": {
+                                "default": true,
+                                "description": "Indicates whether this activity log alert is enabled. If an activity log alert is not enabled, then none of its actions will be activated.",
+                                "type": "boolean"
+                            }
+                        }
+                    },
+                    "tags": {
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "Resource tags"
+                    }
+                },
+                "type": "object"
+            },
+            "ActivityLogAlertResource": {
+                "allOf": [
+                    {
+                        "description": "An azure resource object",
+                        "properties": {
+                            "id": {
+                                "description": "Azure resource Id",
+                                "readOnly": true,
+                                "type": "string"
+                            },
+                            "location": {
+                                "description": "Resource location",
+                                "type": "string",
+                                "x-ms-mutability": [
+                                    "create",
+                                    "read"
+                                ]
+                            },
+                            "name": {
+                                "description": "Azure resource name",
+                                "readOnly": true,
+                                "type": "string"
+                            },
+                            "tags": {
+                                "additionalProperties": {
+                                    "type": "string"
+                                },
+                                "description": "Resource tags"
+                            },
+                            "type": {
+                                "description": "Azure resource type",
+                                "readOnly": true,
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "location"
+                        ],
+                        "x-ms-azure-resource": true,
+                        "type": "object"
+                    }
+                ],
+                "description": "An activity log alert resource.",
+                "properties": {
+                    "properties": {
+                        "description": "The activity log alert properties of the resource.",
+                        "x-ms-client-flatten": true,
+                        "properties": {
+                            "actions": {
+                                "description": "The actions that will activate when the condition is met.",
+                                "properties": {
+                                    "actionGroups": {
+                                        "description": "The list of activity log alerts.",
+                                        "items": {
+                                            "description": "A pointer to an Azure Action Group.",
+                                            "properties": {
+                                                "actionGroupId": {
+                                                    "description": "The resourceId of the action group. This cannot be null or empty.",
+                                                    "type": "string"
+                                                },
+                                                "webhookProperties": {
+                                                    "additionalProperties": {
+                                                        "type": "string"
+                                                    },
+                                                    "description": "the dictionary of custom properties to include with the post operation. These data are appended to the webhook payload."
+                                                }
+                                            },
+                                            "required": [
+                                                "actionGroupId"
+                                            ],
+                                            "type": "object"
+                                        },
+                                        "type": "array"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "condition": {
+                                "description": "The condition that will cause this alert to activate.",
+                                "properties": {
+                                    "allOf": {
+                                        "description": "The list of activity log alert conditions.",
+                                        "items": {
+                                            "description": "An Activity Log alert condition that is met by comparing an activity log field and value.",
+                                            "properties": {
+                                                "equals": {
+                                                    "description": "The field value will be compared to this value (case-insensitive) to determine if the condition is met.",
+                                                    "type": "string"
+                                                },
+                                                "field": {
+                                                    "description": "The name of the field that this condition will examine. The possible values for this field are (case-insensitive): 'resourceId', 'category', 'caller', 'level', 'operationName', 'resourceGroup', 'resourceProvider', 'status', 'subStatus', 'resourceType', or anything beginning with 'properties.'.",
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "field",
+                                                "equals"
+                                            ],
+                                            "type": "object"
+                                        },
+                                        "type": "array"
+                                    }
+                                },
+                                "required": [
+                                    "allOf"
+                                ],
+                                "type": "object"
+                            },
+                            "description": {
+                                "description": "A description of this activity log alert.",
+                                "type": "string"
+                            },
+                            "enabled": {
+                                "default": true,
+                                "description": "Indicates whether this activity log alert is enabled. If an activity log alert is not enabled, then none of its actions will be activated.",
+                                "type": "boolean"
+                            },
+                            "scopes": {
+                                "description": "A list of resourceIds that will be used as prefixes. The alert will only apply to activityLogs with resourceIds that fall under one of these prefixes. This list must include at least one item.",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            }
+                        },
+                        "required": [
+                            "scopes",
+                            "condition",
+                            "actions"
+                        ]
+                    }
+                },
+                "type": "object"
+            },
+            "ErrorResponse": {
+                "description": "Describes the format of Error response.",
+                "properties": {
+                    "code": {
+                        "description": "Error code",
+                        "type": "string"
+                    },
+                    "message": {
+                        "description": "Error message indicating why the operation failed.",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Resource": {
+                "description": "An azure resource object",
+                "properties": {
+                    "id": {
+                        "description": "Azure resource Id",
+                        "readOnly": true,
+                        "type": "string"
+                    },
+                    "location": {
+                        "description": "Resource location",
+                        "type": "string",
+                        "x-ms-mutability": [
+                            "create",
+                            "read"
+                        ]
+                    },
+                    "name": {
+                        "description": "Azure resource name",
+                        "readOnly": true,
+                        "type": "string"
+                    },
+                    "tags": {
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "Resource tags"
+                    },
+                    "type": {
+                        "description": "Azure resource type",
+                        "readOnly": true,
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "location"
+                ],
+                "x-ms-azure-resource": true,
+                "type": "object"
+            }
+        },
+        "parameters": {
+            "ActivityLogAlertNameParameter": {
+                "description": "The name of the activity log alert.",
+                "in": "path",
+                "name": "activityLogAlertName",
+                "required": true,
+                "x-ms-parameter-location": "method",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "ApiVersionParameter": {
+                "description": "Client Api Version.",
+                "in": "query",
+                "name": "api-version",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "ResourceGroupNameParameter": {
+                "description": "The name of the resource group.",
+                "in": "path",
+                "name": "resourceGroupName",
+                "required": true,
+                "x-ms-parameter-location": "method",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "SubscriptionIdParameter": {
+                "description": "The Azure subscription Id.",
+                "in": "path",
+                "name": "subscriptionId",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            }
+        },
+        "securitySchemes": {
+            "azure_auth": {
+                "description": "Azure Active Directory OAuth2 Flow",
+                "type": "oauth2",
+                "flows": {
+                    "implicit": {
+                        "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+                        "scopes": {
+                            "user_impersonation": "impersonate your user account"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

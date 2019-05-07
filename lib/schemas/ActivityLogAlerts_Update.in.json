@@ -1,0 +1,44 @@
+{
+    "type": "object",
+    "properties": {
+        "subscriptionId": {
+            "required": true,
+            "type": "string"
+        },
+        "resourceGroupName": {
+            "required": true,
+            "type": "string"
+        },
+        "activityLogAlertName": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "An activity log alert object for the body of patch operations.",
+            "properties": {
+                "properties": {
+                    "description": "The activity log alert settings for an update operation.",
+                    "x-ms-client-flatten": true,
+                    "properties": {
+                        "enabled": {
+                            "default": true,
+                            "description": "Indicates whether this activity log alert is enabled. If an activity log alert is not enabled, then none of its actions will be activated.",
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "tags": {
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Resource tags"
+                }
+            },
+            "type": "object"
+        },
+        "api_version": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}

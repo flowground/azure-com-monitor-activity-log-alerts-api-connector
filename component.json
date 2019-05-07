@@ -1,0 +1,151 @@
+{
+    "title": "Azure Activity Log Alerts",
+    "docsUrl": "",
+    "url": "https://api.apis.guru/v2/specs/azure.com/monitor-activityLogAlerts_API/2017-04-01/swagger.json",
+    "envVars": {
+        "OAUTH_CLIENT_ID": {
+            "description": "OAuth Client ID"
+        },
+        "OAUTH_CLIENT_SECRET": {
+            "description": "OAuth Client Secret"
+        }
+    },
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://management.azure.com/",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            },
+            "azure_auth": {
+                "label": "Azure Active Directory OAuth2 Flow",
+                "viewClass": "OAuthFieldView"
+            }
+        },
+        "oauth2": {
+            "client_id": "{{OAUTH_CLIENT_ID}}",
+            "client_secret": "{{OAUTH_CLIENT_SECRET}}",
+            "auth_uri": "https://login.microsoftonline.com/common/oauth2/authorize"
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "ActivityLogAlerts_ListBySubscriptionId": {
+            "main": "./lib/actions/ActivityLogAlerts_ListBySubscriptionId.js",
+            "title": "Get a list of all activity log alerts in a subscription.",
+            "description": "Get a list of all activity log alerts in a subscription.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ActivityLogAlerts_ListBySubscriptionId.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ActivityLogAlerts_ListByResourceGroup": {
+            "main": "./lib/actions/ActivityLogAlerts_ListByResourceGroup.js",
+            "title": "Get a list of all activity log alerts in a resource group.",
+            "description": "Get a list of all activity log alerts in a resource group.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ActivityLogAlerts_ListByResourceGroup.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ActivityLogAlerts_Delete": {
+            "main": "./lib/actions/ActivityLogAlerts_Delete.js",
+            "title": "Delete an activity log alert.",
+            "description": "Delete an activity log alert.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ActivityLogAlerts_Delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ActivityLogAlerts_Get": {
+            "main": "./lib/actions/ActivityLogAlerts_Get.js",
+            "title": "Get an activity log alert.",
+            "description": "Get an activity log alert.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ActivityLogAlerts_Get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ActivityLogAlerts_Update": {
+            "main": "./lib/actions/ActivityLogAlerts_Update.js",
+            "title": "Updates an existing ActivityLogAlertResource's tags. To update other fields use the CreateOrUpdate method.",
+            "description": "Updates an existing ActivityLogAlertResource's tags. To update other fields use the CreateOrUpdate method.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ActivityLogAlerts_Update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ActivityLogAlerts_CreateOrUpdate": {
+            "main": "./lib/actions/ActivityLogAlerts_CreateOrUpdate.js",
+            "title": "Create a new activity log alert or update an existing one.",
+            "description": "Create a new activity log alert or update an existing one.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ActivityLogAlerts_CreateOrUpdate.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}
